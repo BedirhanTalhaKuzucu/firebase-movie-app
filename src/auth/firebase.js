@@ -8,6 +8,7 @@ import {
   updateProfile,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 //* https://firebase.google.com/docs/auth/web/start
@@ -88,3 +89,17 @@ export const signUpProvider = (navigate) => {
 
 }
 
+export const forgotPassword = (email) => {
+  //? Email yoluyla şifre sıfırlama için kullanılan firebase metodu
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      // toastWarnNotify("Please check your mail box!");
+       alert("Please check your mail box!");
+    })
+    .catch((err) => {
+      // toastErrorNotify(err.message);
+      alert("please add a e-mail");
+      // ..
+    });
+};

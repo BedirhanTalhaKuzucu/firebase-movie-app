@@ -2,10 +2,12 @@ import axios from "axios";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import VideoSection from "../components/VideoSection";
 
 const MovieDetail = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetail] = useState();
+  const [videoKey, setVideoKey] = useState();
 
   const API_KEY = process.env.REACT_APP_TMDB_KEY;
   const movieDetailBaseUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
@@ -19,11 +21,17 @@ const MovieDetail = () => {
       .get(movieDetailBaseUrl)
       .then((res) => setMovieDetail(res.data))
       .catch((err) => console.log(err));
-  }, [movieDetailBaseUrl]);
+
+      axios
+      .get(videoUrl)
+      .then((res) => setVideoKey(res.data.results[0].key))
+      .catch((err) => console.log(err));
+  }, [movieDetailBaseUrl, videoUrl]);
 
   return (
     <div className="container py-5">
       <h1 className="text-center">{movieDetails?.title}</h1>
+      {videoKey && <VideoSection videoKey={videoKey} />}
       <div className="card mb-3">
         <div className="row g-0">
           <div className="col-md-4">
