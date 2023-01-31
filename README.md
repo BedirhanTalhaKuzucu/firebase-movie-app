@@ -2,4 +2,4 @@ I built a movie site using firebase service where users can register and login. 
 
 
 test it 
-https://with-firebase-movie-app.herokuapp.com/
+https://react-movie-app-withfirebase.netlify.app/
